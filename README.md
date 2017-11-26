@@ -40,11 +40,9 @@ services.pluginManager.loadPackage([
 
 ## Usage
 
-The plug-in starts [eslint_d](https://github.com/mantoni/eslint_d.js) when the IDE loads but can take a couple of seconds to initialize, after it is running you should see the correct linting errors according to your .eslintrc, .eslintrc.json or .eslintrc.yml configs as if you were to run it from the command line, proceeding changes to errors and warnings should be reflected quickly as you change your code.
+The plug-in starts [eslint_d](https://github.com/mantoni/eslint_d.js) when the IDE loads but can take a couple of seconds to initialize, after it is running you should see the correct linting errors according to your [.eslintrc](https://eslint.org/docs/user-guide/configuring#configuration-file-formats) as if you were to run it from the command line, proceeding changes to editor markers should be reflected quickly as you change your code.
 
-The plugin will not function if no .eslintrc is present so be sure to add one even if it is blank.
-
-This was a rather quick and basic implementation based on my very minimal knowledge of the Cloud9 SDK acquired while building the plug-in but it generally works quite well, I will improve it overtime as I use it myself as necessary and if you spot any problems feel free to open an issue or submit a pull request.
+**The plugin will not function if no [.eslintrc](https://eslint.org/docs/user-guide/configuring#configuration-file-formats) is present so be sure to add one even if it is blank.**
 
 # License
 
