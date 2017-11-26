@@ -8,6 +8,7 @@ var baseLanguageHandler = require('plugins/c9.ide.language/base_handler');
 var workerUtil = require('plugins/c9.ide.language/worker_util');
 var handler = module.exports = Object.create(baseLanguageHandler);
 var port, token;
+var ready = false;
 
 //
 handler.init = function(callback) {
@@ -21,9 +22,10 @@ handler.init = function(callback) {
       workerUtil.readFile("~/.eslint_d", "utf-8", function onResult(err, data) {
         var parts = data.split(' ');
 
-        // netcat
+        //
         port = parts[0];
         token = parts[1];
+        ready = true;
 
         callback();
       });
@@ -52,8 +54,16 @@ handler.analyze = function(value, ast, options, callback) {
 
 //
 handler.analyzer = function(value, path, callback) {
+  var markers = [];
+
+  //
   if (!workerUtil.isFeatureEnabled("hints")) {
-    return markers;
+    return callback(markers);
+  }
+
+  //
+  if (!ready)  {
+    return setTimeout(handler.analyzer.bind(this, value, path, callback), 250);
   }
 
   //
@@ -82,7 +92,6 @@ handler.analyzer = function(value, path, callback) {
       }
 
       var results = response ? response[0].messages : [];
-      var markers = [];
 
       //
       results.forEach(function (r) {
