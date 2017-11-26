@@ -1,7 +1,5 @@
 /**
- * Cloud9 Language Foundation
  *
- * @copyright 2013, Ajax.org B.V.
  */
 define(function(require, exports, module) {
     main.consumes = ["language"];
