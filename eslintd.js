@@ -16,6 +16,7 @@ define(function(require, exports, module) {
             language.unregisterLanguageHandler("plugins/c9.ide.language.javascript.eslint/worker/eslint_worker");
             language.registerLanguageHandler("plugins/c9.ide.language.javascript.eslintd/worker/eslintd_worker");
         });
+
         plugin.on("unload", function () {
             language.unregisterLanguageHandler("plugins/c9.ide.language.javascript.eslintd/worker/eslintd_worker");
             language.registerLanguageHandler("plugins/c9.ide.language.javascript.eslint/worker/eslint_worker");
