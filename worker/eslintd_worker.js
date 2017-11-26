@@ -141,7 +141,7 @@ handler.analyzer = function(value, path, callback) {
           },
           type: level,
           level: level !== "info" && level,
-          message: r.message + (r.ruleId ? " (" + r.ruleId + ")" : "")
+          message: r.message + ' at line ' + r.line + ' col ' + r.column + (r.ruleId ? " (" + r.ruleId + ")" : "")
         });
       }); 
       
