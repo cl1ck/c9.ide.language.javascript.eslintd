@@ -15,11 +15,11 @@ handler.init = function(callback) {
   workerUtil.execFile(
     "bash",
     {
-        args: ["-c", "eslint_d start"],
+        args: ["-c", "~/.c9/node_modules/.bin/eslint_d start"],
         mode: "stdin"
     },
     function(err, stdout, stderr) {
-      workerUtil.readFile("~/.c9/node_modules/.bin/eslint_d", "utf-8", function (err, data) {
+      workerUtil.readFile("~/.eslint_d", "utf-8", function (err, data) {
         var parts = data.split(' ');
 
         //
