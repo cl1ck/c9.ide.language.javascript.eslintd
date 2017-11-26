@@ -134,18 +134,18 @@ handler.analyzer = function(value, path, callback) {
 
         markers.push({
           pos: {
-            sl: r.line,
-            el: r.endLine,
+            sl: (r.line - 1),
+            el: (r.endLine - 1),
             sc: (r.column - 1),
             ec: (r.endColumn - 1),
           },
           type: level,
           level: level !== "info" && level,
-          message: r.message + " (" + r.ruleId + ")"
+          message: r.message + (r.ruleId ? " (" + r.ruleId + ")" : "")
         });
       }); 
       
-      // console.info('[eslintd] took ' + (Date.now() - startTime) + 'ms and found ' + markers.length + ' messages');
+      console.info('[eslintd] took ' + (Date.now() - startTime) + 'ms and found ' + markers.length + ' messages');
 
       callback(markers);
     }
