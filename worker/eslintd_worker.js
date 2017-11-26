@@ -62,7 +62,7 @@ handler.analyzer = function(value, path, callback) {
   var base64 = window.btoa(token + " " + absolutePath + " -f json --stdin " + value);
   var command = "echo \"" + base64 + "\" | base64 -d | nc localhost " + port;
 
-  // echo "$TOKEN $PWD --stdin" | cat - file.js | nc localhost $PORT
+  //
   workerUtil.execAnalysis(
     "bash",
     {
