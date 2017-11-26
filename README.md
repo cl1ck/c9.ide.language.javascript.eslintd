@@ -2,7 +2,7 @@
 
 An ESLint plugin for Cloud9 IDE that makes use of [eslint_d](https://github.com/mantoni/eslint_d.js) for lightening fast full featured javascript linting.
 
-The default linter in Cloud9 IDE uses a browser copy of eslint that does not support parsers or plug-ins in the way you might expect and does not work with the likes of the popular [airbnb config](https://github.com/airbnb/javascript). This plug-in uses [eslint_d](https://github.com/mantoni/eslint_d.js) to eliminate the node.js startup time along with the netcat abilities to lint your code in under 50ms on the Cloud9 server using the standard eslint cli for full feature support.
+The default linter in Cloud9 IDE uses a browser copy of eslint that does not support parsers or plug-ins in the way you might expect and does not work with the likes of the popular [airbnb config](https://github.com/airbnb/javascript). This plug-in uses [eslint_d](https://github.com/mantoni/eslint_d.js) to eliminate the node.js startup time along with the netcat abilities to lint your code in ~100ms on the Cloud9 server using the standard eslint cli for full feature support.
 
 ## Installation
 
@@ -36,14 +36,6 @@ Load the plug-in from your Init Script from `Cloud9 > Open Your Init Script menu
 services.pluginManager.loadPackage([
     "~/.c9/plugins/c9.ide.language.javascript.eslintd/package.json"
 ]);
-```
-
-If possible you should disable the default linter to prevent any overlap, This can currently only be done if you host the SDK yourself and the only way I know how to do this right now is to edit `c9sdk/configs/ide/default.js` and comment it out.
-
-```js
-...
-    // "plugins/c9.ide.language.javascript.eslint/eslint",
-...
 ```
 
 ## Usage
