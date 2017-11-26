@@ -19,12 +19,14 @@ handler.init = function(callback) {
         mode: "stdin"
     },
     function(err, stdout, stderr) {
-      workerUtil.readFile("~/.eslint_d", "utf-8", function onResult(err, data) {
+      workerUtil.readFile("~/.c9/node_modules/.bin/eslint_d", "utf-8", function (err, data) {
         var parts = data.split(' ');
 
         //
         port = parts[0];
         token = parts[1];
+        
+        //
         ready = true;
 
         callback();

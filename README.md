@@ -1,4 +1,4 @@
-# javascript.eslintd
+# c9.ide.language.javascript.eslintd
 
 An ESLint plugin for Cloud9 IDE that makes use of [eslint_d](https://github.com/mantoni/eslint_d.js) for lightening fast full featured javascript linting.
 
@@ -17,7 +17,7 @@ Install the plug-in by adding it to your plug-in directory.
 ```sh
 $ mkdir -p ~/.c9/plugins
 $ cd ~/.c9/plugins
-$ git clone https://github.com/michaelmitchell/javascript.eslintd.git
+$ git clone https://github.com/michaelmitchell/c9.ide.language.javascript.eslintd.git
 ```
 
 Load the plug-in from your Init Script from `Cloud9 > Open Your Init Script menu` inside of the IDE. Take a look at the [SDK docs](https://cloud9-sdk.readme.io/docs/customizing-cloud9#section-installing-packages) for more details.
@@ -33,7 +33,7 @@ Load the plug-in from your Init Script from `Cloud9 > Open Your Init Script menu
 // ]);
 
 services.pluginManager.loadPackage([
-    "~/.c9/plugins/javascript.eslintd/package.json"
+    "~/.c9/plugins/c9.ide.language.javascript.eslintd/package.json"
 ]);
 ```
 
