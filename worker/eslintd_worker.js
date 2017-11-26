@@ -4,7 +4,6 @@
 define(function(require, exports, module) {
 
 //
-var lodash = require('plugins/c9.nodeapi/lodash');
 var baseLanguageHandler = require('plugins/c9.ide.language/base_handler');
 var workerUtil = require('plugins/c9.ide.language/worker_util');
 var handler = module.exports = Object.create(baseLanguageHandler);
