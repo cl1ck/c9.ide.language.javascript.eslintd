@@ -19,7 +19,19 @@ handler.init = function(callback) {
         mode: "stdin"
     },
     function(err, stdout, stderr) {
+      if (err || stderr) {
+        console.error('[eslintd] Unhandled Error', err || stderr);
+
+        return callback(err);
+      }
+
       workerUtil.readFile("~/.eslint_d", "utf-8", function (err, data) {
+        if (err || stderr) {
+          console.error('[eslintd] Unhandled Error', err);
+  
+          return callback(err);
+        }
+        
         var parts = data.split(' ');
 
         //
@@ -70,8 +82,11 @@ handler.analyzer = function(value, path, callback) {
 
   //
   var absolutePath = (this.workspaceDir + path).split('/').slice(0, -1).join('/');
-  var base64 = window.btoa(token + " " + absolutePath + " -f json --stdin " + value);
+  var base64 = window.btoa(token + " " + absolutePath + " -f json --stdin \n" + value);
   var command = "echo \"" + base64 + "\" | base64 -d | nc localhost " + port;
+  
+  //
+  var startTime = Date.now();
 
   //
   workerUtil.execAnalysis(
@@ -81,21 +96,29 @@ handler.analyzer = function(value, path, callback) {
         mode: "stdin"
     },
     function(err, stdout, stderr) {
+      if (err || stderr) {
+        console.error('[eslintd] Unhandled Error', err || stderr);
+
+        return callback(markers);
+      }
+
       var response;
 
       if (typeof stdout === 'string') {
         try {
-          response = JSON.parse(stdout.split('# exit 1')[0]);
+          response = JSON.parse(stdout.replace(/# exit 1$/m, ''));
         } catch (e) {
-          response = [{ messages: [] }];
+          console.error('[eslintd] Parsing Error', stdout);
+
+          return callback(markers);
         }
       } else {
         response = stdout;
       }
-
+  
+      //
       var results = response ? response[0].messages : [];
 
-      //
       results.forEach(function (r) {
         if(!r.message) return;
 
@@ -120,7 +143,9 @@ handler.analyzer = function(value, path, callback) {
           level: level !== "info" && level,
           message: r.message + " (" + r.ruleId + ")"
         });
-      });
+      }); 
+      
+      // console.info('[eslintd] took ' + (Date.now() - startTime) + 'ms and found ' + markers.length + ' messages');
 
       callback(markers);
     }
