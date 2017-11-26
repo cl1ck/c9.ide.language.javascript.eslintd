@@ -6,7 +6,7 @@ The default linter in Cloud9 IDE uses a browser copy of eslint that does not sup
 
 ## Installation
 
-This plug-in currently requires [eslint_d](https://github.com/mantoni/eslint_d.js) to be installed globally on the Cloud9 server.
+This plug-in currently requires [eslint_d](https://github.com/mantoni/eslint_d.js) to be installed globally on the Cloud9 server or workspace, from the IDE terminal run the following command to install it.
 
 ```sh
 $ npm install -g eslint_d
@@ -15,8 +15,9 @@ $ npm install -g eslint_d
 Install the plug-in by adding it to your plug-in directory.
 
 ```sh
+$ mkdir -p ~/.c9/plugins
 $ cd ~/.c9/plugins
-$ git clone git@github.com:michaelmitchell/c9.ide.language.javascript.eslintd.git
+$ git clone https://github.com/michaelmitchell/c9.ide.language.javascript.eslintd.git
 ```
 
 Load the plug-in from your Init Script from `Cloud9 > Open Your Init Script menu` inside of the IDE. Take a look at the [SDK docs](https://cloud9-sdk.readme.io/docs/customizing-cloud9#section-installing-packages) for more details.
@@ -36,13 +37,14 @@ services.pluginManager.loadPackage([
 ]);
 ```
 
-You should disable the default linter to prevent any overlap. The only way I know how to do this right now is to edit `c9sdk/configs/ide/default.js` and comment it out.
+If possible you should disable the default linter to prevent any overlap, This can currently only be done if you host the SDK yourself and the only way I know how to do this right now is to edit `c9sdk/configs/ide/default.js` and comment it out.
 
 ```js
 ...
     // "plugins/c9.ide.language.javascript.eslint/eslint",
 ...
 ```
+If someone knows how to do this in the init script please let me know.
 
 ## Usage
 
