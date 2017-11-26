@@ -38,14 +38,6 @@ services.pluginManager.loadPackage([
 ]);
 ```
 
-If possible you should disable the default linter to prevent any overlap, This can currently only be done if you host the SDK yourself and the only way I know how to do this right now is to edit `c9sdk/configs/ide/default.js` and comment it out.
-
-```js
-...
-    // "plugins/c9.ide.language.javascript.eslint/eslint",
-...
-```
-
 ## Usage
 
 The plug-in starts [eslint_d](https://github.com/mantoni/eslint_d.js) when the IDE loads but can take a couple of seconds to initialize, after it is running you should see the correct linting errors according to your .eslintrc, .eslintrc.json or .eslintrc.yml configs as if you were to run it from the command line, proceeding changes to errors and warnings should be reflected quickly as you change your code.
