@@ -1,0 +1,35 @@
+{
+    "name": "c9.ide.language.javascript.eslintd",
+    "version": "1.0.0",
+    "author": "Michael Mitchell",
+    "description": "An ESLint plugin for Cloud9 IDE that makes use of `eslint_d` for lightening fast full featured javascript linting.",
+    "homepage": "https://github.com/michaelmitchell/c9.ide.language.javascript.eslintd",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/michaelmitchell/c9.ide.language.javascript.eslintd.git"
+    },
+    "bugs": {
+      "url": "https://github.com/michaelmitchell/c9.ide.language.javascript.eslintd/issues"
+    },
+    "contributors": [],
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/michaelmitchell/c9.ide.language.javascript.eslintd.git"
+    },
+    "licenses": [
+        "MIT"
+    ],
+    "keywords": [
+      "c9",
+      "cloud9",
+      "die",
+      "lint",
+      "eslint"
+    ],
+    "plugins": {
+        "eslintd": {}
+    },
+    "categories": [
+        "core"
+    ]
+}
