@@ -47,3 +47,6 @@ The plug-in starts [eslint_d](https://github.com/mantoni/eslint_d.js) when the I
 # License
 
 MIT
+
+---
+[![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/michaelmitchell/donate)
