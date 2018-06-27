@@ -1,6 +1,3 @@
-/**
- *
- */
 define(function(require, exports, module) {
 
 //
@@ -12,6 +9,7 @@ var ready = false;
 
 //
 handler.init = function(callback) {
+  console.log('[eslintd] init');
   workerUtil.execFile(
     "bash",
     {
@@ -28,16 +26,16 @@ handler.init = function(callback) {
       workerUtil.readFile("~/.eslint_d", "utf-8", function (err, data) {
         if (err || stderr) {
           console.error('[eslintd] Unhandled Error', err);
-  
+
           return callback(err);
         }
-        
+
         var parts = data.split(' ');
 
         //
         port = parts[0];
         token = parts[1];
-        
+
         //
         ready = true;
 
@@ -84,7 +82,7 @@ handler.analyzer = function(value, path, callback) {
   var absolutePath = (this.workspaceDir + path).split('/').slice(0, -1).join('/');
   var base64 = window.btoa(token + " " + absolutePath + " -f json --stdin \n" + value);
   var command = "echo \"" + base64 + "\" | base64 -d | nc localhost " + port;
-  
+
   //
   var startTime = Date.now();
 
@@ -97,9 +95,23 @@ handler.analyzer = function(value, path, callback) {
     },
     function(err, stdout, stderr) {
       if (err || stderr) {
-        console.error('[eslintd] Unhandled Error', err || stderr);
-
-        return callback(markers);
+        console.error('[eslintd] Unhandled Error. Restarting eslint_d.', err || stderr);
+        function noop() {}
+        var error = err || stderr;
+        if (error.message !== 'ENOENT: No linter installation found') {
+          handler.init(noop);
+        }
+        return callback([{
+            pos: {
+              sl: 0,
+              el: 0,
+              sc: 1,
+              ec: 1,
+            },
+            type: "warning",
+            level: "warning",
+            message: "[eslintd] " + error.message
+          }]);
       }
 
       var response;
@@ -115,7 +127,7 @@ handler.analyzer = function(value, path, callback) {
       } else {
         response = stdout;
       }
-  
+
       //
       var results = response ? response[0].messages : [];
 
@@ -143,9 +155,9 @@ handler.analyzer = function(value, path, callback) {
           level: level !== "info" && level,
           message: r.message + ' at line ' + r.line + ' col ' + r.column + (r.ruleId ? " (" + r.ruleId + ")" : "")
         });
-      }); 
-      
-      console.info('[eslintd] took ' + (Date.now() - startTime) + 'ms and found ' + markers.length + ' messages');
+      });
+
+      // console.info('[eslintd] took ' + (Date.now() - startTime) + 'ms and found ' + markers.length + ' messages');
 
       callback(markers);
     }
